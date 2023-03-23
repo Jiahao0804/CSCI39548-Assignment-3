@@ -7,3 +7,31 @@ td{
     width: 50px;
     background-color: white;
 }
+
+
+Red
+{
+    border-color:black;
+    background-color: red;
+}
+
+
+Green
+{
+    border-color: black;
+    background-color: green;
+}
+
+
+Blue
+{
+    border-color: black;
+    background-color: blue;
+}
+
+
+Yellow
+{
+    border-color: black;
+    background-color: yellow;
+}
