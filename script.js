@@ -5,28 +5,135 @@ let colorSelected;
 
 // Add a row
 function addR() {
-    // table
+    // table reference
     let grid = document.getElementById("grid");
 
-    let rows = document.getElementsByTagName("tr");
+    var rows = grid.insertRow(0);
+    numRows++;
 
-
+    if (numCols == 0)
+    {
+        var cell = rows.insertCell(0);
+        numCols++;
+    }
     
+    else
+    {
+        for (let i = 0; i < numCols; i++)
+        {
+            cell = rows.insertCell(i);
+        }
+    }
 }
 
 // Add a column
 function addC() {
+    let grid = document.getElementById("grid");
+
+    if (numCols == 0)
+    {
+        var rows = grid.insertRow(0);
+
+        rows.insertCell(0);
+        numRows++;
+        numCols++;
+    }
     
+    else
+    {
+        numCols++;
+        for (i = 0; i < grid.rows.length; i++)
+        {
+            for (j = grid.rows[i].cells.length; j < numCols; j++)
+            {
+                grid.rows[i].insertCell(0);
+            }
+        }
+    }
 }
+
 
 // Remove a row
 function removeR() {
+    // if there is no row to remove
+    if (numRows == 0)
+    {
+        alert("There is no row to remove");
+    }
 
+    else
+    {   
+        // if numRow > 0
+        let grid = document.getElementById("grid");
+        grid.deleteRow(--numRows);
+
+        // if the numRows become 0 after remove, clean numCols(reset it to 0)
+        if (numRows == 0)
+        {
+            numCols == 0;
+        } 
+    }
+
+    /* not work
+    // table reference
+    let grid = document.getElementsById("grid");
+
+    let row = document.getElementsByTagName("tr");
+
+    if (row.length === 0)
+    {
+        alert("There is no row to remove");
+        return;
+    }
+
+    // remove the last cell for each row
+    let last_row_cell = grid.lastElementChild;
+    grid.removeChild(last_row_cell);
+    */
 }
 
 // Remove a column
 function removeC() {
-    
+    if (numCols == 0)
+    {
+        alert("There is no column to remove");
+    }
+
+    else
+    {
+        let grid = document.getElementById("grid");
+        numCols--;
+
+        for (let i = 0; i < numRows; i++)
+        {
+            grid.rows[i].deleteCell(-1);
+        }
+
+        if (numCols == 0)
+        {
+            numRows = 0;
+        }
+    }
+    /* not working
+    // table reference
+    let grid = document.getElementsById("grid");
+
+    let row = document.getElementsByTagName("tr");
+
+    // if there is no row, there is no column that need to remove
+    if (row.length === 0)
+    {
+        alert("There is nothing to remove");
+        return;
+    }
+
+    // otherwise, remove the last cell from each row -> remove a column
+    for (let i = 0; i < row.length; i++)
+    {
+        let col = row[i].lastElementChild;
+        row[i].removeChild(col);
+    }
+    */
 }
 
 // Set global variable for selected color
@@ -36,12 +143,14 @@ function selectColor(){
 }
 
 // Fill all uncolored cells
+// use a for loop to check out if the cells contain color
+// if it does not contain color, fill color for the uncolored cell
 function fillU(){
     let cells = document.getElementsByTagName("td");
 
     for (let i = 0; i < cells.length; i++)
     {
-        if (cells.style.backgroundColor == "")
+        if (cells.style.backgroundColor === "")
         {
             cells[i].style.backgroundColor = colorSelected;
         }
@@ -52,6 +161,7 @@ function fillU(){
 function fillAll(){
     let cells = document.getElementsByTagName("td");
 
+    // use a for loop to fill the same color for all cells
     for (let i = 0; i < cells.length; i++)
     {
         cells[i].style.backgroundColor = colorSelected;
@@ -63,6 +173,7 @@ function clearAll(){
 
     let cells = document.getElementsByTagName("td");
 
+    // use a for loop to clean the color for all cells
     for (let i = 0; i < cells.length; i++)
     {
         cells[i].style.backgroundColor = "";
