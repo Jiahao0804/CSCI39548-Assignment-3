@@ -70,26 +70,23 @@ function removeR() {
         let grid = document.getElementById("grid");
         grid.deleteRow(--numRows);
 
-        // if the numRows become 0 after remove, clean numCols(reset it to 0) 
+        // if the numRows become 0 after remove, clean numCols(reset it to 0)
+        if (numRows == 0)
+        {
+            numCols = 0;
+        } 
     }
 
-    if (numRows == 0)
-    {
-        numCols == 0;
-    }
 
     /* not work
     // table reference
     let grid = document.getElementsById("grid");
-
     let rows = document.getElementsByTagName("tr");
-
     if (rows.length === 0)
     {
         alert("There is no row to remove");
         return;
     }
-
     // remove the last cell for each row
     let last_row_cell = grid.lastElementChild;
     grid.removeChild(last_row_cell);
@@ -106,28 +103,30 @@ function removeC() {
     else
     {
         let grid = document.getElementById("grid");
-        numCols--;
 
         for (let i = 0; i < numRows; i++)
         {
             grid.rows[i].deleteCell(-1);
         }
+
+        if (numCols == 0)
+        {
+            numRows = 0;
+        }
     }
+
 
 
     /* not work
     // table reference
     let grid = document.getElementsById("grid");
-
     let rows = document.getElementsByTagName("tr");
-
     // if there is no row, there is no column that need to remove
     if (rows.length === 0)
     {
         alert("There is nothing to remove");
         return;
     }
-
     // otherwise, remove the last cell from each row -> remove a column
     for (let i = 0; i < rows.length; i++)
     {
