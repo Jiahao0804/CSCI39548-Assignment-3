@@ -7,49 +7,52 @@ let colorSelected;
 function addR() {
     // table reference
     let grid = document.getElementById("grid");
+    
+    // insert a row into grid
+    let rows = grid.insertRow(0);
 
-    var rows = grid.insertRow(0);
-    numRows++;
-
+    // if the number of column is 0, set it to one to make 
     if (numCols == 0)
     {
-        var cell = rows.insertCell(0);
         numCols++;
     }
-    
-    else
-    {
-        for (let i = 0; i < numCols; i++)
-        {
-            cell = rows.insertCell(i);
-        }
+
+    // insert cell to each column
+    for (let i = 0; i < numCols; i++)
+    {   
+        cell = rows.insertCell(i);
+        cell.onclick=function(){
+            this.style.backgroundColor = colorSelected;
+        };
     }
+
+    numRows++;
 }
 
 // Add a column
 function addC() {
     let grid = document.getElementById("grid");
 
-    if (numCols == 0)
-    {
-        var rows = grid.insertRow(0);
+    if (numRows == 0)
+    {   
+        numCols++;
+    }
 
-        rows.insertCell(0);
-        numRows++;
-        numCols++;
-    }
-    
     else
-    {
-        numCols++;
-        for (i = 0; i < grid.rows.length; i++)
+    {   
+        // insert cell to each row to make a column
+        for (let i = 0; i < numRows; i++)
         {
-            for (j = grid.rows[i].cells.length; j < numCols; j++)
-            {
-                grid.rows[i].insertCell(0);
-            }
+            cell = grid.rows[i].insertCell(numCols);
+            cell.onclick=function(){
+                this.style.backgroundColor = colorSelected;
+            };
         }
+
+        numCols++;
+
     }
+
 }
 
 
@@ -67,20 +70,21 @@ function removeR() {
         let grid = document.getElementById("grid");
         grid.deleteRow(--numRows);
 
-        // if the numRows become 0 after remove, clean numCols(reset it to 0)
-        if (numRows == 0)
-        {
-            numCols == 0;
-        } 
+        // if the numRows become 0 after remove, clean numCols(reset it to 0) 
+    }
+
+    if (numRows == 0)
+    {
+        numCols == 0;
     }
 
     /* not work
     // table reference
     let grid = document.getElementsById("grid");
 
-    let row = document.getElementsByTagName("tr");
+    let rows = document.getElementsByTagName("tr");
 
-    if (row.length === 0)
+    if (rows.length === 0)
     {
         alert("There is no row to remove");
         return;
@@ -108,30 +112,27 @@ function removeC() {
         {
             grid.rows[i].deleteCell(-1);
         }
-
-        if (numCols == 0)
-        {
-            numRows = 0;
-        }
     }
-    /* not working
+
+
+    /* not work
     // table reference
     let grid = document.getElementsById("grid");
 
-    let row = document.getElementsByTagName("tr");
+    let rows = document.getElementsByTagName("tr");
 
     // if there is no row, there is no column that need to remove
-    if (row.length === 0)
+    if (rows.length === 0)
     {
         alert("There is nothing to remove");
         return;
     }
 
     // otherwise, remove the last cell from each row -> remove a column
-    for (let i = 0; i < row.length; i++)
+    for (let i = 0; i < rows.length; i++)
     {
-        let col = row[i].lastElementChild;
-        row[i].removeChild(col);
+        let col = rows[i].lastElementChild;
+        rows[i].removeChild(col);
     }
     */
 }
