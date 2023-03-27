@@ -1,5 +1,7 @@
 Github username: Jiahao0804
-link to CSCI39548 Assignment 3 repository:
+<br>
+link to CSCI39548 Assignment 3 repository: https://github.com/Jiahao0804/CSCI39548-Assignment-3
+<br>
 Github page website: https://jiahao0804.github.io/CSCI39548-Assignment-3/
 
 # grid-maker-starter-code
